@@ -12,11 +12,20 @@ Config.Cooldown = 10000 -- in milliseconds
 
 Config.Chance = 5 -- 1-10, 10 being 100% chance of cops being called
 
-Config.Reward1 = "water_bottle" -- Change this to whatever item you want to give out (item name)
-
-Config.Reward2 = "sandwich" -- Change this to whatever item you want to give out (item name)
-
-Config.Reward3 = "ligther" -- Change this to whatever item you want to give out (item name)
+Config.Rewards = {
+    {
+        item = 'water_bottle',
+        amount = 1
+    },
+    {
+        item = 'sandwich',
+        amount = 1
+    },
+    {
+        item = 'ligther',
+        amount = 1
+    }
+}
 
 Config.CooldownText = "Empty : (" -- Change this to whatever you want the notification to say when the player attempts to steal another mailbox before the cooldown is up
 
