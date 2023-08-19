@@ -1,5 +1,6 @@
 fx_version 'cerulean'
 game 'gta5'
+author 'jamazzz'
 
 client_scripts {
     'client.lua',

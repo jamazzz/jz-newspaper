@@ -1,12 +1,6 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 local objects = {}
 
-AddEventHandler('QBCore:Client:OnPlayerLoaded', function()
-    QBCore.Functions.TriggerCallback('jz-mail:server:GetObjects', function(incObjects)
-        objects = incObjects
-    end)
-end)
-
 local function loadAnimDict(dict)
     while (not HasAnimDictLoaded(dict)) do
         RequestAnimDict(dict)
@@ -16,7 +10,7 @@ end
 
 --Events
 local rob = false
-RegisterNetEvent("jz-mail:client:StealMail", function(data)
+RegisterNetEvent("jz-newspaper:client:Stealnewspaper", function(data)
     local ped = PlayerPedId()
     if rob then
         QBCore.Functions.Notify(Config.CooldownText, "error")
@@ -27,24 +21,22 @@ RegisterNetEvent("jz-mail:client:StealMail", function(data)
         TriggerEvent('QBCore:Notify', Config.CarText, 'error')
         return
     end
-    local seconds = math.random(9,12)
-    local circles = math.random(1,3)
+    local seconds = Config.CircleTime
+    local circles = Config.CircleNumber
             exports['ps-ui']:Circle(function(success)
                 if success then
                     rob = true
                     loadAnimDict("amb@prop_human_bum_bin@base")
                     TaskPlayAnim(ped, "amb@prop_human_bum_bin@base", "base", 8.0, 1.0, -1, 49, 0, 0, 0, 0)
-                    QBCore.Functions.Progressbar("robbing_mail", Config.ProgressbarText, math.random(5000, 7000), false, true, {
+                    QBCore.Functions.Progressbar("robbing_newspaper", Config.ProgressbarText, math.random(5000, 7000), false, true, {
                         disableMovement = true,
                         disableCarMovement = true,
                         disableMouse = false,
                         disableCombat = true,
                     }, {}, {}, function()
                     end, function()
-                        local coords = GetEntityCoords(data.entity)
-                        SetEntityAsMissionEntity(data.entity, true, true)
                         StopAnimTask(ped, "amb@prop_human_bum_bin@base", "base", 1.0)
-                        TriggerServerEvent("jz-mail:giveitem")
+                        TriggerServerEvent("jz-newspaper:giveitem")
                         local randl = math.random(1,10)
                         if  randl > Config.Chance then
                             exports['ps-dispatch']:SuspiciousActivity()
@@ -53,15 +45,16 @@ RegisterNetEvent("jz-mail:client:StealMail", function(data)
                 end
             end, circles, seconds)
             rob = true
-    StopAnimTask(ped, "melee@large_wpn@streamed_core", "base", 1.0)
 end
 end)
 --
-exports['qb-target']:AddTargetModel(Config.MailboxModels, {
+
+if Config.Target == 'qb' then
+exports['qb-target']:AddTargetModel(Config.newspaperboxModels, {
     options = {
         {
             type = "client",
-            event = "jz-mail:client:StealMail",
+            event = "jz-newspaper:client:Stealnewspaper",
             icon = Config.Icon,
             label = Config.Label,
             item = Config.RequiredItem,
@@ -69,5 +62,18 @@ exports['qb-target']:AddTargetModel(Config.MailboxModels, {
     },
     distance = 2.5
 })
+else if Config.Target == 'ox' then
+    exports.ox_target:addModel(Config.newspaperboxModels, {
+        {
+            type = "client",
+            event = "jz-newspaper:client:Stealnewspaper",
+            icon = Config.Icon,
+            label = Config.Label,
+            item = Config.RequiredItem,
+            distance = 2.5
+        }
+      })
+end
+end
 
 

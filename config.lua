@@ -1,12 +1,29 @@
 Config = {}
-Config.MailboxModels = {
+
+Config.Framework = 'qb' 
+
+Config.Target = 'qb'
+
+Config.Inventory = 'qb'
+
+-- In qb you can use it in this 2 ways:
+-- Config.Framework = 'qb' Config.Target = 'qb'
+-- Config.Framework = 'qb' Config.Target = 'ox'
+
+-- In ESX you can use it in this way: (Coming Soon)
+-- Config.Framework = 'esx' Config.Target = 'ox' (Coming Soon)
+
+-- Inventory Options 
+-- QB / OX / ESX (Coming Soon)
+
+Config.newspaperboxModels = {
     "prop_news_disp_03a",
     "prop_news_disp_02a",
     "prop_news_disp_01a",
     "prop_news_disp_03e",
 }
 
-Config.RequiredItem = "weapon_crowbar" -- Change this to whatever item you want to require to steal a mailbox
+Config.RequiredItem = "weapon_crowbar" -- Change this to whatever item you want to require to steal a newspaperbox
 
 Config.Cooldown = 10000 -- in milliseconds
 
@@ -22,17 +39,21 @@ Config.Rewards = {
         amount = 1
     },
     {
-        item = 'ligther',
+        item = 'lighter',
         amount = 1
     }
 }
 
-Config.CooldownText = "Empty : (" -- Change this to whatever you want the notification to say when the player attempts to steal another mailbox before the cooldown is up
+Config.CircleTime = math.random(9,12)
 
-Config.CarText = "You can't do this in a car!" -- Change this to whatever you want the notification to say when the player attempts to steal a mailbox while in a car
+Config.CircleNumber = math.random(1,3)
 
-Config.Label = "Steal Mail" -- Change this to whatever you want the label to be on the mailbox
+Config.CooldownText = "Empty : (" -- Change this to whatever you want the notification to say when the player attempts to steal another newspaperbox before the cooldown is up
 
-Config.Icon = "fa-solid fa-envelope" -- Change this to whatever you want the icon to be on the mailbox
+Config.CarText = "You can't do this in a car!" -- Change this to whatever you want the notification to say when the player attempts to steal a newspaperbox while in a car
 
-Config.ProgressbarText = "Stealing Mail" -- Change this to whatever you want the progressbar text to be
+Config.Label = "Steal newspaper" -- Change this to whatever you want the label to be on the newspaperbox
+
+Config.Icon = "fa-solid fa-envelope" -- Change this to whatever you want the icon to be on the newspaperbox
+
+Config.ProgressbarText = "Stealing newspaper" -- Change this to whatever you want the progressbar text to be
